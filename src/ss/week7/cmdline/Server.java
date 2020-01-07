@@ -44,15 +44,16 @@ public class Server {
             System.out.println("ERROR: could not create a socket on " + " with port " + port);
         }
         
+        Socket s = null;
         try {
-			sock.accept();
+			s = sock.accept();
 		} catch (IOException e1) {
 			System.out.println("Could not connect a client to the server");
 		}
 
         // create Peer object and start the two-way communication
         try {
-            Peer client = new Peer(name, new Socket());
+            Peer client = new Peer(name, s);
             Thread streamInputHandler = new Thread(client);
             streamInputHandler.start();
             client.handleTerminalInput();

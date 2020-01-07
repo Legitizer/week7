@@ -4,7 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
@@ -36,7 +37,8 @@ public class Peer implements Runnable {
     	
     	name = nameArg;
     	sock = sockArg;
-    	scanner = new Scanner(System.in);
+    	out = new BufferedWriter(new StringWriter());
+    	in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
     }
 
     /**
@@ -51,7 +53,6 @@ public class Peer implements Runnable {
     				System.out.println(line);
     			}
     		} catch (IOException e) {
-    			System.out.println("Reached end of incoming messages");
     		}
     	}
     }
@@ -62,6 +63,12 @@ public class Peer implements Runnable {
      * On Peer.EXIT the method ends
      */
     public void handleTerminalInput() {
+    	try {
+			out.write(getName() + ": Connection established");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
     	while(true) {
     		try {
         		String line = readString(getName() + ": ");
