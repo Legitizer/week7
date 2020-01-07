@@ -63,11 +63,11 @@ public class Peer implements Runnable {
      * On Peer.EXIT the method ends
      */
     public void handleTerminalInput() {
-    	
     	while(true) {
     		try {
     			String signature = getName() + ": ";
-        		String line = readString(getName() + ": ");
+        		String line = readString(signature);
+        		System.out.println(line);
         		if (line.equals(signature)) {
         			continue;
         		}
