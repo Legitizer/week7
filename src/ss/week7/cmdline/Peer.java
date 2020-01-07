@@ -68,16 +68,17 @@ public class Peer implements Runnable {
     	while(true) {
     		try {
     			String signature = getName() + ": ";
-        		String line = readString(signature);
+        		String line = signature + readString("");
+        		
         		if (line.equals(signature)) {
         			continue;
         		}
-        		if (line.toLowerCase().equals(signature + "exit")) {
+        		if (line.toLowerCase().equals(signature.toLowerCase() + "exit")) {
         			return;
         		}
     			out.write(line);
-    			//out.newLine();
-    			//out.flush();
+    			out.newLine();
+    			out.flush();
     		} catch (IOException e) {
     			System.out.println("Reached end of input");
     		}
@@ -105,7 +106,7 @@ public class Peer implements Runnable {
 
     /** read a line from the default input */
     static public String readString(String text) {
-        System.out.print(text);
+        //System.out.print(text);
         String antw = null;
         try {
             BufferedReader in = new BufferedReader(new InputStreamReader(
