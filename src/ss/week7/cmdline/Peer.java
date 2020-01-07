@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.Socket;
@@ -37,8 +38,9 @@ public class Peer implements Runnable {
     	
     	name = nameArg;
     	sock = sockArg;
-    	out = new BufferedWriter(new StringWriter());
+    	
     	in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
+    	out = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
     }
 
     /**
@@ -67,16 +69,15 @@ public class Peer implements Runnable {
     		try {
     			String signature = getName() + ": ";
         		String line = readString(signature);
-        		System.out.println(line);
         		if (line.equals(signature)) {
         			continue;
         		}
-        		if (line.toLowerCase().equals("exit")) {
+        		if (line.toLowerCase().equals(signature + "exit")) {
         			return;
         		}
     			out.write(line);
-    			out.newLine();
-    			out.flush();
+    			//out.newLine();
+    			//out.flush();
     		} catch (IOException e) {
     			System.out.println("Reached end of input");
     		}
