@@ -74,7 +74,7 @@ public class Peer implements Runnable {
         			continue;
         		}
         		if (line.toLowerCase().equals(signature.toLowerCase() + "exit")) {
-        			return;
+        			break;
         		}
     			out.write(line);
     			out.newLine();

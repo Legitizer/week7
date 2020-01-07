@@ -56,6 +56,7 @@ public class Server {
         try {
             Peer client = new Peer(name, s);
             Thread streamInputHandler = new Thread(client);
+            streamInputHandler.setDaemon(true);
             streamInputHandler.start();
             client.handleTerminalInput();
             client.shutDown();

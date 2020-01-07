@@ -17,7 +17,7 @@ public class RecipeServer implements Runnable {
     }
     
     public void run() {
-        try (ServerSocket ssock = new ServerSocket(port,0,InetAddress.getByName("127.0.0.1"))) {
+        try (ServerSocket ssock = new ServerSocket(port,0,InetAddress.getByName("130.89.179.209"))) {
         	// If you want external hosts (i.e., not this computer) to connect to 
         	// this server you can use the following line instead. However, be careful 
         	// with that as this recipe server has some security issues!
