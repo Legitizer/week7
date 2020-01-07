@@ -63,16 +63,12 @@ public class Peer implements Runnable {
      * On Peer.EXIT the method ends
      */
     public void handleTerminalInput() {
-    	try {
-			out.write(getName() + ": Connection established");
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+    	
     	while(true) {
     		try {
+    			String signature = getName() + ": ";
         		String line = readString(getName() + ": ");
-        		if (line == null) {
+        		if (line.equals(signature)) {
         			continue;
         		}
         		if (line.toLowerCase().equals("exit")) {

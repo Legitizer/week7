@@ -47,13 +47,14 @@ public class Server {
         Socket s = null;
         try {
 			s = sock.accept();
+			System.out.println("Connection established");
 		} catch (IOException e1) {
 			System.out.println("Could not connect a client to the server");
 		}
 
         // create Peer object and start the two-way communication
         try {
-            Peer client = new Peer(name, s);
+            Peer client = new Peer("Client", s);
             Thread streamInputHandler = new Thread(client);
             streamInputHandler.start();
             client.handleTerminalInput();
